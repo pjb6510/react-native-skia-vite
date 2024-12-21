@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
-import { Skia } from "../Skia";
-import type { SkData, DataSourceParam, SkJSIInstance } from "../types";
 import { Platform } from "../../Platform";
+import { useSkiaApi } from "../../renderer/useSkiaApi";
+import type { DataSourceParam, SkData, SkJSIInstance, Skia } from "../types";
 
 const factoryWrapper = <T>(
   data2: SkData,
@@ -19,6 +19,7 @@ const factoryWrapper = <T>(
 };
 
 export const loadData = <T>(
+  Skia: Skia,
   source: DataSourceParam,
   factory: (data: SkData) => T | null,
   onError?: (err: Error) => void
@@ -99,7 +100,15 @@ export const useRawData = <T extends SkJSIInstance<string>>(
   factory: (data: SkData) => T | null,
   onError?: (err: Error) => void,
   manage = true
-) => useLoading(source, () => loadData<T>(source, factory, onError), manage);
+) => {
+  const { Skia } = useSkiaApi();
+
+  return useLoading(
+    source,
+    () => loadData<T>(Skia, source, factory, onError),
+    manage
+  );
+};
 
 const identity = (data: SkData) => data;
 

@@ -1,7 +1,5 @@
-import React from "react";
-
-import type { SkiaDefaultProps } from "../../processors/Animations/Animations";
 import type { PointsProps } from "../../../dom/types";
+import type { SkiaDefaultProps } from "../../processors/Animations/Animations";
 
 export const Points = ({
   mode = "points",

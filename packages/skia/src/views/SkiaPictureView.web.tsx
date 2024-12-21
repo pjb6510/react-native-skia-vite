@@ -1,7 +1,7 @@
 import type { SkCanvas } from "../skia/types";
 
-import type { SkiaPictureViewNativeProps } from "./types";
 import { SkiaBaseWebView } from "./SkiaBaseWebView";
+import type { SkiaPictureViewNativeProps } from "./types";
 
 export class SkiaPictureView extends SkiaBaseWebView<SkiaPictureViewNativeProps> {
   constructor(props: SkiaPictureViewNativeProps) {

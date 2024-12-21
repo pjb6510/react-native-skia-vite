@@ -1,10 +1,12 @@
-import { Skia } from "../Skia";
+import { useSkiaApi } from "../../renderer/useSkiaApi";
 import type { DataSourceParam } from "../types";
 
 export const useSVG = (
   source: DataSourceParam,
   onError?: (err: Error) => void
 ) => {
+  const { Skia } = useSkiaApi();
+
   if (source === null || source === undefined) {
     throw new Error(`Invalid svg data source. Got: ${source}`);
   }

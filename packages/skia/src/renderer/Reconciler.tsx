@@ -4,15 +4,15 @@ import ReactReconciler from "react-reconciler";
 
 import type { Skia } from "../skia/types";
 
-import { skHostConfig, debug as hostDebug } from "./HostConfig";
 import { Container } from "./Container";
+import { debug as hostDebug, skHostConfig } from "./HostConfig";
 
 const skiaReconciler = ReactReconciler(skHostConfig);
 
 skiaReconciler.injectIntoDevTools({
   bundleType: 1,
   version: "0.0.1",
-  rendererPackageName: "react-native-skia",
+  rendererPackageName: "react-native-skia-web",
 });
 
 export class SkiaRoot {
@@ -21,11 +21,10 @@ export class SkiaRoot {
 
   constructor(
     Skia: Skia,
-    native = false,
     redraw: () => void = () => {},
     getNativeId: () => number = () => 0
   ) {
-    this.container = new Container(Skia, redraw, getNativeId, native);
+    this.container = new Container(Skia, redraw, getNativeId);
     this.root = skiaReconciler.createContainer(
       this.container,
       0,

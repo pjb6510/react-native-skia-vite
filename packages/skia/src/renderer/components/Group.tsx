@@ -1,8 +1,8 @@
-import React, { isValidElement } from "react";
+import { isValidElement } from "react";
 
-import type { SkiaProps } from "../processors";
 import type { GroupProps } from "../../dom/types";
 import type { ChildrenProps } from "../../dom/types/Common";
+import type { SkiaProps } from "../processors";
 
 export interface PublicGroupProps extends Omit<GroupProps, "layer"> {
   layer?: GroupProps["layer"] | ChildrenProps["children"];

@@ -1,36 +1,13 @@
 {
-  "name": "react-native-skia-monorepo",
+  "name": "react-native-skia-with-vite-monorepo",
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
   "licenseFilename": "LICENSE.md",
   "readmeFilename": "README.md",
-  "author": "Shopify Inc.",
-  "contributors": [
-    {
-      "name": "Christian Falch",
-      "email": "christian.falch@gmail.com"
-    },
-    {
-      "name": "William Candillon",
-      "email": "wcandillon@gmail.com"
-    }
-  ],
   "workspaces": [
-    "packages/*",
-    "apps/*"
+    "packages/*"
   ],
-  "scripts": {
-    "lint": "turbo run lint",
-    "tsc": "turbo run tsc",
-    "test": "turbo run test",
-    "build": "turbo run build",
-    "build:ios": "turbo run build:ios",
-    "build:android": "turbo run build:android",
-    "pod:install": "turbo run pod:install"
-  },
-  "packageManager": "yarn@3.6.4",
-  "devDependencies": {
-    "turbo": "^2.1.1"
-  }
+  "scripts": {},
+  "devDependencies": {}
 }

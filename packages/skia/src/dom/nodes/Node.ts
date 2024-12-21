@@ -1,6 +1,7 @@
 import type { Skia } from "../../skia/types";
-import type { Node, DeclarationNode, NodeType } from "../types";
 import type { DeclarationContext } from "../types/DeclarationContext";
+import { DeclarationNode, Node } from "../types/Node";
+import { NodeType } from "../types/NodeType";
 
 export interface NodeContext {
   Skia: Skia;

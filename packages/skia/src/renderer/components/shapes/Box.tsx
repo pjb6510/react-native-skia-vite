@@ -1,5 +1,3 @@
-import React from "react";
-
 import type { BoxProps, BoxShadowProps } from "../../../dom/types";
 import type { SkiaProps } from "../../processors";
 

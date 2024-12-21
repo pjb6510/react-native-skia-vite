@@ -1,27 +1,30 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import CanvasKitInit from "canvaskit-wasm/bin/full/canvaskit";
 import type {
-  CanvasKit as CanvasKitType,
   CanvasKitInitOptions,
-} from "canvaskit-wasm";
+  CanvasKit as CanvasKitType,
+} from 'canvaskit-wasm';
+import CanvasKitInit from 'canvaskit-wasm';
+import CanvasKitWasm from 'canvaskit-wasm/bin/canvaskit.wasm?url';
 
 declare global {
   var CanvasKit: CanvasKitType;
 }
 
-let ckSharedPromise: Promise<CanvasKitType>;
-
 export const LoadSkiaWeb = async (opts?: CanvasKitInitOptions) => {
-  if (global.CanvasKit !== undefined) {
-    return;
+  if (window.CanvasKit !== undefined) {
+    return window.CanvasKit;
   }
-  ckSharedPromise = ckSharedPromise ?? CanvasKitInit(opts);
-  const CanvasKit = await ckSharedPromise;
+
+  const option = opts ?? {
+    locateFile: () => CanvasKitWasm,
+  };
+
+  const CanvasKit = await CanvasKitInit(option);
+
   // The CanvasKit API is stored on the global object and used
   // to create the JsiSKApi in the Skia.web.ts file.
-  global.CanvasKit = CanvasKit;
-};
+  window.CanvasKit = CanvasKit;
 
-// We keep this function for backward compatibility
-export const LoadSkia = LoadSkiaWeb;
+  return CanvasKit;
+};

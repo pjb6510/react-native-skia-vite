@@ -1,16 +1,15 @@
-import type { RefObject, CSSProperties } from "react";
-import React, { useLayoutEffect, useMemo, useRef } from "react";
-import type { LayoutChangeEvent, ViewComponent, ViewProps } from "react-native";
+import type { CSSProperties, RefObject } from "react";
+import { useLayoutEffect, useMemo, useRef } from "react";
 
 import type { DataModule } from "../skia/types";
-import { isRNModule } from "../skia/types";
 
+import { OnLayout, ViewProps } from "../views/types";
 import type { IPlatform } from "./IPlatform";
 
 // eslint-disable-next-line max-len
 // https://github.com/necolas/react-native-web/blob/master/packages/react-native-web/src/modules/useElementLayout/index.js
 const DOM_LAYOUT_HANDLER_NAME = "__reactLayoutHandler";
-type OnLayout = ((event: LayoutChangeEvent) => void) | undefined;
+
 type Div = HTMLDivElement & {
   __reactLayoutHandler: OnLayout;
 };
@@ -22,45 +21,10 @@ const getObserver = () => {
     resizeObserver = new window.ResizeObserver(function (entries) {
       entries.forEach((entry) => {
         const node = entry.target as Div;
-        const { left, top, width, height } = entry.contentRect;
         const onLayout = node[DOM_LAYOUT_HANDLER_NAME];
         if (typeof onLayout === "function") {
           // setTimeout 0 is taken from react-native-web (UIManager)
-          setTimeout(
-            () =>
-              onLayout({
-                timeStamp: Date.now(),
-                nativeEvent: { layout: { x: left, y: top, width, height } },
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-expect-error
-                currentTarget: 0,
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-expect-error
-                target: 0,
-                bubbles: false,
-                cancelable: false,
-                defaultPrevented: false,
-                eventPhase: 0,
-                isDefaultPrevented() {
-                  throw new Error("Method not supported on web.");
-                },
-                isPropagationStopped() {
-                  throw new Error("Method not supported on web.");
-                },
-                persist() {
-                  throw new Error("Method not supported on web.");
-                },
-                preventDefault() {
-                  throw new Error("Method not supported on web.");
-                },
-                stopPropagation() {
-                  throw new Error("Method not supported on web.");
-                },
-                isTrusted: true,
-                type: "",
-              }),
-            0
-          );
+          setTimeout(() => onLayout(entry), 0);
         }
       });
     });
@@ -95,7 +59,7 @@ const useElementLayout = (ref: RefObject<Div>, onLayout: OnLayout) => {
   }, [observer, ref]);
 };
 
-const View = (({ children, onLayout, style: rawStyle }: ViewProps) => {
+export const View = ({ children, onLayout, style: rawStyle }: ViewProps) => {
   const style = useMemo(() => (rawStyle ?? {}) as CSSProperties, [rawStyle]);
   const ref = useRef<Div>(null);
   useElementLayout(ref, onLayout);
@@ -126,25 +90,12 @@ const View = (({ children, onLayout, style: rawStyle }: ViewProps) => {
       {children}
     </div>
   );
-}) as unknown as typeof ViewComponent;
+};
 
 export const Platform: IPlatform = {
   OS: "web",
   PixelRatio: typeof window !== "undefined" ? window.devicePixelRatio : 1, // window is not defined on node
   resolveAsset: (source: DataModule) => {
-    if (isRNModule(source)) {
-      if (typeof source === "number" && typeof require === "function") {
-        const {
-          getAssetByID,
-        } = require("react-native/Libraries/Image/AssetRegistry");
-        const { httpServerLocation, name, type } = getAssetByID(source);
-        const uri = `${httpServerLocation}/${name}.${type}`;
-        return uri;
-      }
-      throw new Error(
-        "Asset source is a number - this is not supported on the web"
-      );
-    }
     return source.default;
   },
   findNodeHandle: () => {

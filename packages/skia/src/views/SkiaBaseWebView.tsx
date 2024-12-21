@@ -1,10 +1,9 @@
 /* global HTMLCanvasElement */
 import React from "react";
-import type { LayoutChangeEvent } from "react-native";
 
-import type { SkRect, SkCanvas } from "../skia/types";
+import { Platform } from "../Platform/Platform.web";
+import type { SkCanvas, SkRect } from "../skia/types";
 import { JsiSkSurface } from "../skia/web/JsiSkSurface";
-import { Platform } from "../Platform";
 
 import type { SkiaBaseViewProps } from "./types";
 
@@ -32,8 +31,8 @@ export abstract class SkiaBaseWebView<
     this._unsubscriptions = [];
   }
 
-  private onLayoutEvent(evt: LayoutChangeEvent) {
-    const { CanvasKit } = global;
+  private onLayoutEvent(evt: ResizeObserverEntry) {
+    const { CanvasKit } = window;
     // Reset canvas / surface on layout change
     const canvas = this._canvasRef.current;
     if (canvas) {
@@ -116,6 +115,7 @@ export abstract class SkiaBaseWebView<
         this._surface?.ref.flush();
       }
     }
+
     this.requestId = requestAnimationFrame(this.tick.bind(this));
   }
 

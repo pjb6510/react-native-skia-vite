@@ -1,9 +1,7 @@
-import { Skia } from "../Skia";
+import { useSkiaApi } from "../../renderer/useSkiaApi";
 import type { DataSourceParam } from "../types";
 
 import { useRawData } from "./Data";
-
-const tfFactory = Skia.Typeface.MakeFreeTypeFaceFromData.bind(Skia.Typeface);
 
 /**
  * Returns a Skia Typeface object
@@ -11,4 +9,9 @@ const tfFactory = Skia.Typeface.MakeFreeTypeFaceFromData.bind(Skia.Typeface);
 export const useTypeface = (
   source: DataSourceParam,
   onError?: (err: Error) => void
-) => useRawData(source, tfFactory, onError);
+) => {
+  const { Skia } = useSkiaApi();
+  const tfFactory = Skia.Typeface.MakeFreeTypeFaceFromData.bind(Skia.Typeface);
+
+  return useRawData(source, tfFactory, onError);
+};

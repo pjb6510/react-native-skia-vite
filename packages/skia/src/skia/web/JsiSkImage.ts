@@ -6,13 +6,13 @@ import type {
 
 import type {
   FilterMode,
+  ImageFormat,
+  ImageInfo,
   MipmapMode,
   SkImage,
   SkMatrix,
   SkShader,
   TileMode,
-  ImageFormat,
-  ImageInfo,
 } from "../types";
 
 import { getEnum, HostObject } from "./Host";
@@ -21,8 +21,10 @@ import { JsiSkShader } from "./JsiSkShader";
 
 // https://github.com/google/skia/blob/1f193df9b393d50da39570dab77a0bb5d28ec8ef/modules/canvaskit/htmlcanvas/util.js
 export const toBase64String = (bytes: Uint8Array) => {
+  // @ts-ignore
   if (typeof Buffer !== "undefined") {
     // Are we on node?
+    // @ts-ignore
     return Buffer.from(bytes).toString("base64");
   } else {
     // From https://stackoverflow.com/a/25644409
@@ -169,10 +171,5 @@ export class JsiSkImage extends HostObject<Image, "Image"> implements SkImage {
       throw new Error("Could not create image from bytes");
     }
     return new JsiSkImage(this.CanvasKit, img);
-  }
-
-  getNativeTextureUnstable(): unknown {
-    console.warn("getBackendTexture is not implemented on Web");
-    return null;
   }
 }

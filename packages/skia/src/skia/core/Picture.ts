@@ -1,5 +1,4 @@
-import { Skia } from "../Skia";
-import type { SkCanvas, SkRect, SkSize } from "../types";
+import type { SkCanvas, Skia, SkRect, SkSize } from "../types";
 import { isRect } from "../types";
 
 /**
@@ -9,6 +8,7 @@ import { isRect } from "../types";
  * @returns SkPicture
  */
 export const createPicture = (
+  Skia: Skia,
   cb: (canvas: SkCanvas) => void,
   rect?: SkRect | SkSize
 ) => {

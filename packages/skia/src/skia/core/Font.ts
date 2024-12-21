@@ -1,13 +1,13 @@
 /*global SkiaApi*/
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from 'react';
 
-import { Skia } from "../Skia";
-import { FontSlant } from "../types";
-import type { DataModule, DataSourceParam, SkFontMgr } from "../types";
-import { Platform } from "../../Platform";
-import type { SkTypefaceFontProvider } from "../types/Paragraph/TypefaceFontProvider";
+import { Platform } from '../../Platform';
+import type { DataModule, DataSourceParam, SkFontMgr, Skia } from '../types';
+import { FontSlant } from '../types';
+import type { SkTypefaceFontProvider } from '../types/Paragraph/TypefaceFontProvider';
 
-import { useTypeface } from "./Typeface";
+import { useTypeface } from './Typeface';
+import { useSkiaApi } from '../../renderer/useSkiaApi';
 
 const defaultFontSize = 14;
 
@@ -19,6 +19,8 @@ export const useFont = (
   size = defaultFontSize,
   onError?: (err: Error) => void
 ) => {
+  const { Skia } = useSkiaApi();
+
   const typeface = useTypeface(font, onError);
   return useMemo(() => {
     if (typeface) {
@@ -29,19 +31,19 @@ export const useFont = (
   }, [size, typeface]);
 };
 
-type Slant = "normal" | "italic" | "oblique";
+type Slant = 'normal' | 'italic' | 'oblique';
 type Weight =
-  | "normal"
-  | "bold"
-  | "100"
-  | "200"
-  | "300"
-  | "400"
-  | "500"
-  | "600"
-  | "700"
-  | "800"
-  | "900";
+  | 'normal'
+  | 'bold'
+  | '100'
+  | '200'
+  | '300'
+  | '400'
+  | '500'
+  | '600'
+  | '700'
+  | '800'
+  | '900';
 
 interface RNFontStyle {
   fontFamily: string;
@@ -51,16 +53,16 @@ interface RNFontStyle {
 }
 
 const defaultFontStyle: RNFontStyle = {
-  fontFamily: "System",
+  fontFamily: 'System',
   fontSize: defaultFontSize,
-  fontStyle: "normal",
-  fontWeight: "normal",
+  fontStyle: 'normal',
+  fontWeight: 'normal',
 };
 
 const slant = (s: Slant) => {
-  if (s === "italic") {
+  if (s === 'italic') {
     return FontSlant.Italic;
-  } else if (s === "oblique") {
+  } else if (s === 'oblique') {
     return FontSlant.Oblique;
   } else {
     return FontSlant.Upright;
@@ -69,9 +71,9 @@ const slant = (s: Slant) => {
 
 const weight = (fontWeight: Weight) => {
   switch (fontWeight) {
-    case "normal":
+    case 'normal':
       return 400;
-    case "bold":
+    case 'bold':
       return 700;
     default:
       return parseInt(fontWeight, 10);
@@ -79,6 +81,7 @@ const weight = (fontWeight: Weight) => {
 };
 
 export const matchFont = (
+  Skia: Skia,
   inputStyle: Partial<RNFontStyle> = {},
   fontMgr: SkFontMgr = Skia.FontMgr.System()
 ) => {
@@ -95,12 +98,18 @@ export const matchFont = (
   return Skia.Font(typeface, fontStyle.fontSize);
 };
 
-export const listFontFamilies = (fontMgr: SkFontMgr = Skia.FontMgr.System()) =>
+export const listFontFamilies = (Skia: Skia, fontMgr: SkFontMgr) => {
+  fontMgr = fontMgr ?? Skia.FontMgr.System();
+
   new Array(fontMgr.countFamilies())
     .fill(0)
     .map((_, i) => fontMgr.getFamilyName(i));
+};
 
-const loadTypefaces = (typefacesToLoad: Record<string, DataModule[]>) => {
+const loadTypefaces = (
+  Skia: Skia,
+  typefacesToLoad: Record<string, DataModule[]>
+) => {
   const promises = Object.keys(typefacesToLoad).flatMap((familyName) => {
     return typefacesToLoad[familyName].map((typefaceToLoad) => {
       return Skia.Data.fromURI(Platform.resolveAsset(typefaceToLoad)).then(
@@ -118,10 +127,12 @@ const loadTypefaces = (typefacesToLoad: Record<string, DataModule[]>) => {
 };
 
 export const useFonts = (sources: Record<string, DataModule[]>) => {
+  const { Skia } = useSkiaApi();
+
   const [fontMgr, setFontMgr] = useState<null | SkTypefaceFontProvider>(null);
 
   useEffect(() => {
-    loadTypefaces(sources).then((result) => {
+    loadTypefaces(Skia, sources).then((result) => {
       const fMgr = Skia.TypefaceFontProvider.Make();
       result.forEach(([familyName, typeface]) => {
         fMgr.registerFont(typeface, familyName);

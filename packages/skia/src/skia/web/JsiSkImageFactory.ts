@@ -1,19 +1,19 @@
 import type { CanvasKit, Image } from "canvaskit-wasm";
 
-import { CanvasKitWebGLBuffer, isNativeBufferWeb } from "../types";
 import type {
-  SkData,
-  ImageInfo,
-  SkImage,
-  NativeBuffer,
   ImageFactory,
+  ImageInfo,
+  NativeBuffer,
+  SkData,
+  SkImage,
 } from "../types";
+import { CanvasKitWebGLBuffer, isNativeBufferWeb } from "../types";
 
-import { Host, getEnum } from "./Host";
-import { JsiSkImage } from "./JsiSkImage";
-import { JsiSkData } from "./JsiSkData";
-import type { JsiSkSurface } from "./JsiSkSurface";
 import type { CanvasKitWebGLBufferImpl } from "./CanvasKitWebGLBufferImpl";
+import { Host, getEnum } from "./Host";
+import { JsiSkData } from "./JsiSkData";
+import { JsiSkImage } from "./JsiSkImage";
+import type { JsiSkSurface } from "./JsiSkSurface";
 
 export class JsiSkImageFactory extends Host implements ImageFactory {
   constructor(CanvasKit: CanvasKit) {
@@ -73,10 +73,6 @@ export class JsiSkImageFactory extends Host implements ImageFactory {
       return null;
     }
     return new JsiSkImage(this.CanvasKit, image);
-  }
-
-  MakeImageFromNativeTextureUnstable(): SkImage {
-    throw new Error("MakeImageFromNativeTexture is not implemented on web");
   }
 
   MakeImage(info: ImageInfo, data: SkData, bytesPerRow: number) {

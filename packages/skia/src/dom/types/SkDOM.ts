@@ -1,55 +1,45 @@
-import type { ChildrenProps, GroupProps, PaintProps } from "./Common";
-import type {
-  BlendImageFilterProps,
-  BlurImageFilterProps,
-  DropShadowImageFilterProps,
-  OffsetImageFilterProps,
-  RuntimeShaderImageFilterProps,
-  DisplacementMapImageFilterProps,
-  MorphologyImageFilterProps,
-  BlendProps,
-} from "./ImageFilters";
-import type { DeclarationNode, RenderNode } from "./Node";
 import type {
   BlendColorFilterProps,
-  MatrixColorFilterProps,
   LerpColorFilterProps,
+  MatrixColorFilterProps,
 } from "./ColorFilters";
+import type { ChildrenProps, GroupProps, PaintProps } from "./Common";
 import type {
-  ImageProps,
+  AtlasProps,
+  BoxProps,
+  BoxShadowProps,
   CircleProps,
-  PathProps,
+  DiffRectProps,
+  DrawingNodeProps,
+  GlyphsProps,
+  ImageProps,
+  ImageSVGProps,
   LineProps,
   OvalProps,
   PatchProps,
+  PathProps,
+  PictureProps,
   PointsProps,
   RectProps,
   RoundedRectProps,
-  VerticesProps,
-  TextProps,
-  DiffRectProps,
-  TextPathProps,
   TextBlobProps,
-  GlyphsProps,
-  PictureProps,
-  ImageSVGProps,
-  DrawingNodeProps,
-  BoxProps,
-  BoxShadowProps,
-  AtlasProps,
+  TextPathProps,
+  TextProps,
+  VerticesProps,
 } from "./Drawings";
-import type { BlurMaskFilterProps } from "./MaskFilters";
 import type {
-  FractalNoiseProps,
-  SweepGradientProps,
-  ImageShaderProps,
-  LinearGradientProps,
-  ShaderProps,
-  TurbulenceProps,
-  TwoPointConicalGradientProps,
-  RadialGradientProps,
-  ColorProps,
-} from "./Shaders";
+  BlendImageFilterProps,
+  BlendProps,
+  BlurImageFilterProps,
+  DisplacementMapImageFilterProps,
+  DropShadowImageFilterProps,
+  MorphologyImageFilterProps,
+  OffsetImageFilterProps,
+  RuntimeShaderImageFilterProps,
+} from "./ImageFilters";
+import type { BlurMaskFilterProps } from "./MaskFilters";
+import { DeclarationNode, RenderNode } from "./Node";
+import type { ParagraphProps } from "./Paragraph";
 import type {
   CornerPathEffectProps,
   DashPathEffectProps,
@@ -58,7 +48,17 @@ import type {
   Path1DPathEffectProps,
   Path2DPathEffectProps,
 } from "./PathEffects";
-import type { ParagraphProps } from "./Paragraph";
+import type {
+  ColorProps,
+  FractalNoiseProps,
+  ImageShaderProps,
+  LinearGradientProps,
+  RadialGradientProps,
+  ShaderProps,
+  SweepGradientProps,
+  TurbulenceProps,
+  TwoPointConicalGradientProps,
+} from "./Shaders";
 
 type ImageFilterNode<P> = DeclarationNode<P>;
 

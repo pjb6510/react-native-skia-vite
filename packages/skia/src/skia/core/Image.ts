@@ -1,10 +1,8 @@
 import { Platform } from "../../Platform";
-import { Skia } from "../Skia";
-import type { DataSourceParam, SkImage } from "../types";
+import { useSkiaApi } from "../../renderer/useSkiaApi";
+import type { DataSourceParam, Skia, SkImage } from "../types";
 
 import { useRawData } from "./Data";
-
-const imgFactory = Skia.Image.MakeImageFromEncoded.bind(Skia.Image);
 
 /**
  * Returns a Skia Image object
@@ -12,7 +10,11 @@ const imgFactory = Skia.Image.MakeImageFromEncoded.bind(Skia.Image);
 export const useImage = (
   source: DataSourceParam,
   onError?: (err: Error) => void
-) => useRawData(source, imgFactory, onError);
+) => {
+  const { Skia } = useSkiaApi();
+  const imgFactory = Skia.Image.MakeImageFromEncoded.bind(Skia.Image);
+  return useRawData(source, imgFactory, onError);
+};
 
 /**
  * Creates an image from a given view reference. NOTE: This method has different implementations
@@ -30,6 +32,7 @@ export const makeImageFromView = <
     | React.Component<unknown, unknown>
     | React.ComponentClass<unknown>
 >(
+  Skia: Skia,
   viewRef: React.RefObject<T>,
   callback:
     | null

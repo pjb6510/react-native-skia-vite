@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { NodeHandle, ViewComponent } from "react-native";
 
 import type { DataModule } from "../skia/types";
+import { View } from "./Platform.web";
 
 export interface IPlatform {
   OS: string;
@@ -12,7 +12,7 @@ export interface IPlatform {
       | number
       | React.Component<any, any>
       | React.ComponentClass<any>
-  ) => null | NodeHandle;
+  ) => null;
   resolveAsset: (source: DataModule) => string;
-  View: typeof ViewComponent;
+  View: typeof View;
 }

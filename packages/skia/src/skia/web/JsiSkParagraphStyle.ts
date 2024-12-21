@@ -1,7 +1,7 @@
 import type { CanvasKit, ParagraphStyle } from "canvaskit-wasm";
 
-import { TextDirection } from "../types";
 import type { SkParagraphStyle } from "../types";
+import { TextDirection } from "../types";
 
 export class JsiSkParagraphStyle {
   static toParagraphStyle(

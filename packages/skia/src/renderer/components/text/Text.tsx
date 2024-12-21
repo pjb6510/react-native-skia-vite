@@ -1,7 +1,5 @@
-import React from "react";
-
-import type { SkiaDefaultProps } from "../../processors";
 import type { TextProps } from "../../../dom/types";
+import type { SkiaDefaultProps } from "../../processors";
 
 export const Text = ({
   x = 0,

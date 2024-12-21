@@ -1,4 +1,6 @@
-import type {
+import {
+  BlendMode,
+  PaintStyle,
   SkCanvas,
   SkColor,
   SkColorFilter,
@@ -8,14 +10,14 @@ import type {
   SkPathEffect,
   SkShader,
   Skia,
+  StrokeCap,
+  StrokeJoin,
 } from "../../skia/types";
-import { BlendMode, PaintStyle, StrokeCap, StrokeJoin } from "../../skia/types";
-import { enumKey } from "../nodes/datatypes/Enum";
 import { JsiDeclarationNode } from "../nodes/Node";
-
-import type { PaintProps, SkEnum } from "./Common";
+import { enumKey } from "../nodes/datatypes";
+import { PaintProps, SkEnum } from "./Common";
 import { DeclarationContext } from "./DeclarationContext";
-import type { Node } from "./Node";
+import { Node } from "./Node";
 
 export interface DrawingContext {
   canvas: SkCanvas;

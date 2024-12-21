@@ -1,72 +1,64 @@
-import { NodeType } from "../dom/types";
+import { JsiDrawingNode } from "../dom/nodes/DrawingNode";
 import type {
-  DeclarationNode,
-  FractalNoiseProps,
-  RenderNode,
-  CircleProps,
-  DrawingNodeProps,
-  ImageProps,
-  PaintProps,
-  PathProps,
-  LineProps,
-  OvalProps,
-  DiffRectProps,
-  PointsProps,
-  RectProps,
-  RoundedRectProps,
-  TextProps,
-  VerticesProps,
-  BlurMaskFilterProps,
-  BlendImageFilterProps,
-  BlurImageFilterProps,
-  DisplacementMapImageFilterProps,
-  DropShadowImageFilterProps,
-  OffsetImageFilterProps,
-  RuntimeShaderImageFilterProps,
-  MatrixColorFilterProps,
-  ShaderProps,
-  ImageShaderProps,
-  LinearGradientProps,
-  GroupProps,
-  PatchProps,
+  AtlasProps,
   BlendColorFilterProps,
-  DashPathEffectProps,
-  DiscretePathEffectProps,
-  CornerPathEffectProps,
-  Line2DPathEffectProps,
-  Path1DPathEffectProps,
-  Path2DPathEffectProps,
-  TextPathProps,
-  TextBlobProps,
-  GlyphsProps,
-  TwoPointConicalGradientProps,
-  TurbulenceProps,
-  SweepGradientProps,
-  RadialGradientProps,
-  ColorProps,
-  PictureProps,
-  ImageSVGProps,
-  LerpColorFilterProps,
+  BlendImageFilterProps,
+  BlendProps,
+  BlurImageFilterProps,
+  BlurMaskFilterProps,
   BoxProps,
   BoxShadowProps,
-  ParagraphProps,
-  AtlasProps,
-} from "../dom/types";
-import type { ChildrenProps } from "../dom/types/Common";
-import type {
-  BlendProps,
+  ChildrenProps,
+  CircleProps,
+  ColorProps,
+  CornerPathEffectProps,
+  DashPathEffectProps,
+  DeclarationNode,
+  DiffRectProps,
+  DiscretePathEffectProps,
+  DisplacementMapImageFilterProps,
+  DrawingNodeProps,
+  DropShadowImageFilterProps,
+  FractalNoiseProps,
+  GlyphsProps,
+  GroupProps,
+  ImageProps,
+  ImageShaderProps,
+  ImageSVGProps,
+  LerpColorFilterProps,
+  Line2DPathEffectProps,
+  LinearGradientProps,
+  LineProps,
+  MatrixColorFilterProps,
   MorphologyImageFilterProps,
-} from "../dom/types/ImageFilters";
-import type { SkRect, SkRRect } from "../skia/types";
-import type { JsiDrawingNode } from "../dom/nodes/DrawingNode";
-
-import type { Container } from "./Container";
-import { exhaustiveCheck } from "./typeddash";
-import type { SkiaProps } from "./processors";
-
-// This flag should only be turned on for debugging/testing
-const shouldUseJSDomOnNative = false;
-export const NATIVE_DOM = shouldUseJSDomOnNative ? false : !!global.SkiaDomApi;
+  OffsetImageFilterProps,
+  OvalProps,
+  PaintProps,
+  ParagraphProps,
+  PatchProps,
+  Path1DPathEffectProps,
+  Path2DPathEffectProps,
+  PathProps,
+  PictureProps,
+  PointsProps,
+  RadialGradientProps,
+  RectProps,
+  RenderNode,
+  RoundedRectProps,
+  RuntimeShaderImageFilterProps,
+  ShaderProps,
+  SweepGradientProps,
+  TextBlobProps,
+  TextPathProps,
+  TextProps,
+  TurbulenceProps,
+  TwoPointConicalGradientProps,
+  VerticesProps,
+} from "../dom/types";
+import { NodeType } from "../dom/types/NodeType";
+import { SkRect, SkRRect } from "../skia/types";
+import { Container } from "./Container";
+import { SkiaProps } from "./processors";
 
 declare global {
   var SkiaDomApi: {
@@ -402,6 +394,6 @@ export const createNode = (
     case NodeType.Paragraph:
       return Sk.Paragraph(props);
     default:
-      return exhaustiveCheck(type);
+      throw new Error(`Unsupported node type: ${type}`);
   }
 };

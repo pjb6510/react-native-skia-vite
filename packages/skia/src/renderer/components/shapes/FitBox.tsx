@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 
 import type { Fit } from "../../../dom/nodes";
 import { fitRects, rect2rect } from "../../../dom/nodes";

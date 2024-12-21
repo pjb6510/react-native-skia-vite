@@ -1,6 +1,5 @@
-import { Skia } from "../skia";
-import type { SkCanvas } from "../skia/types";
 import { JsiDrawingContext } from "../dom/types/DrawingContext";
+import { SkCanvas } from "../skia/types";
 
 import { SkiaBaseWebView } from "./SkiaBaseWebView";
 import type { SkiaDomViewNativeProps } from "./types";
@@ -16,7 +15,7 @@ export class SkiaDomView extends SkiaBaseWebView<SkiaDomViewNativeProps> {
       this.props.onSize.value = { width, height };
     }
     if (this.props.root) {
-      const ctx = new JsiDrawingContext(Skia, canvas);
+      const ctx = new JsiDrawingContext(this.props.Skia, canvas);
       this.props.root.render(ctx);
     }
   }

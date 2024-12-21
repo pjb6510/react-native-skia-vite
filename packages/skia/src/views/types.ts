@@ -1,10 +1,10 @@
-import type { ViewProps } from "react-native";
-
-import type { GroupProps, RenderNode } from "../dom/types";
-import type { SkImage, SkPicture, SkRect, SkSize } from "../skia/types";
+import { CSSProperties } from "react";
+import type { GroupProps } from "../dom/types/Common";
+import { RenderNode } from "../dom/types/Node";
 import type { SharedValueType } from "../renderer/processors/Animations/Animations";
+import type { Skia, SkImage, SkPicture, SkRect, SkSize } from "../skia/types";
 
-export type NativeSkiaViewProps = ViewProps & {
+export type NativeSkiaViewProps = {
   debug?: boolean;
   opaque?: boolean;
 };
@@ -21,6 +21,13 @@ export interface ISkiaViewApi {
   makeImageSnapshot: (nativeId: number, rect?: SkRect) => SkImage;
   makeImageSnapshotAsync: (nativeId: number, rect?: SkRect) => Promise<SkImage>;
 }
+
+export type OnLayout = ((event: ResizeObserverEntry) => void) | undefined;
+export type ViewProps = {
+  children?: React.ReactNode;
+  onLayout?: OnLayout;
+  style?: CSSProperties;
+};
 
 export interface SkiaBaseViewProps extends ViewProps {
   /**
@@ -42,5 +49,6 @@ export interface SkiaPictureViewNativeProps extends SkiaBaseViewProps {
 }
 
 export interface SkiaDomViewNativeProps extends SkiaBaseViewProps {
+  Skia: Skia;
   root?: RenderNode<GroupProps>;
 }

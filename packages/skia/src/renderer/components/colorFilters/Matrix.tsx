@@ -1,7 +1,5 @@
-import React from "react";
-
-import type { SkiaProps } from "../../processors";
 import type { MatrixColorFilterProps } from "../../../dom/types";
+import type { SkiaProps } from "../../processors";
 
 export const ColorMatrix = (props: SkiaProps<MatrixColorFilterProps>) => {
   return <skMatrixColorFilter {...props} />;

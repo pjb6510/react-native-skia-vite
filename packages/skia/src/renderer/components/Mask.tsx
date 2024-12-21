@@ -1,8 +1,7 @@
 import type { ReactNode } from "react";
-import React from "react";
 
-import { Group } from "./Group";
 import { LumaColorFilter } from "./colorFilters/LumaColorFilter";
+import { Group } from "./Group";
 import { Paint } from "./Paint";
 
 interface MaskProps {

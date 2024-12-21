@@ -1,6 +1,6 @@
 import { mix } from "../../renderer/processors/math";
 import type { Color, SkColor } from "../../skia";
-import { Skia } from "../../skia";
+import { Skia } from "../../skia/types";
 
 import { interpolate } from "./interpolate";
 
@@ -39,6 +39,7 @@ const interpolateColorsRGB = (
 };
 
 export const interpolateColors = (
+  Skia: Skia,
   value: number,
   inputRange: number[],
   _outputRange: Color[]
@@ -48,7 +49,7 @@ export const interpolateColors = (
   return interpolateColorsRGB(value, inputRange, outputRange);
 };
 
-export const mixColors = (value: number, x: Color, y: Color) => {
+export const mixColors = (Skia: Skia, value: number, x: Color, y: Color) => {
   "worklet";
   const c1 = Skia.Color(x);
   const c2 = Skia.Color(y);

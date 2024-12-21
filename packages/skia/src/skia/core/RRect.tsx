@@ -1,7 +1,6 @@
-import { Skia } from "../Skia";
-import type { SkRect } from "../types";
+import type { Skia, SkRect } from "../types";
 
-export const rrect = (r: SkRect, rx: number, ry: number) => {
+export const rrect = (Skia: Skia, r: SkRect, rx: number, ry: number) => {
   "worklet";
   return Skia.RRectXY(r, rx, ry);
 };
