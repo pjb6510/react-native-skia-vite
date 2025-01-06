@@ -7,7 +7,6 @@ import { FontSlant } from '../types';
 import type { SkTypefaceFontProvider } from '../types/Paragraph/TypefaceFontProvider';
 
 import { useTypeface } from './Typeface';
-import { useSkiaApi } from '../../renderer/useSkiaApi';
 
 const defaultFontSize = 14;
 
@@ -15,13 +14,12 @@ const defaultFontSize = 14;
  * Returns a Skia Font object
  * */
 export const useFont = (
+  Skia: Skia,
   font: DataSourceParam,
   size = defaultFontSize,
   onError?: (err: Error) => void
 ) => {
-  const { Skia } = useSkiaApi();
-
-  const typeface = useTypeface(font, onError);
+  const typeface = useTypeface(Skia, font, onError);
   return useMemo(() => {
     if (typeface) {
       return Skia.Font(typeface, size);
@@ -126,9 +124,7 @@ const loadTypefaces = (
   return Promise.all(promises);
 };
 
-export const useFonts = (sources: Record<string, DataModule[]>) => {
-  const { Skia } = useSkiaApi();
-
+export const useFonts = (Skia: Skia, sources: Record<string, DataModule[]>) => {
   const [fontMgr, setFontMgr] = useState<null | SkTypefaceFontProvider>(null);
 
   useEffect(() => {

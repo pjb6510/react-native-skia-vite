@@ -18,6 +18,14 @@ import {
   sub,
   topLeft,
   topRight,
+  useAnimatedImage,
+  useData,
+  useFont,
+  useFonts,
+  useImage,
+  useRawData,
+  useSVG,
+  useTypeface,
   vec,
 } from '../skia/core';
 import { SkiaApiContext } from './SkiaApiProvider';
@@ -67,5 +75,27 @@ export const useSkiaApi = () => {
     dist: dist,
   };
 
-  return { Skia: skiaApi, Utils };
+  const Hooks = {
+    // AnimatedImage
+    useAnimatedImage: useAnimatedImage.bind(null, skiaApi),
+
+    // Data
+    useRawData: useRawData.bind(null, skiaApi),
+    useData: useData.bind(null, skiaApi),
+
+    // Font
+    useFont: useFont.bind(null, skiaApi),
+    useFonts: useFonts.bind(null, skiaApi),
+
+    // Typeface
+    useTypeface: useTypeface.bind(null, skiaApi),
+
+    // Image
+    useImage: useImage.bind(null, skiaApi),
+
+    // SVG
+    useSVG: useSVG.bind(null, skiaApi),
+  };
+
+  return { Skia: skiaApi, Utils, Hooks };
 };

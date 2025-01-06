@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
-import { Platform } from "../../Platform";
-import { useSkiaApi } from "../../renderer/useSkiaApi";
-import type { DataSourceParam, SkData, SkJSIInstance, Skia } from "../types";
+import { Platform } from '../../Platform';
+import type { DataSourceParam, SkData, SkJSIInstance, Skia } from '../types';
 
 const factoryWrapper = <T>(
   data2: SkData,
@@ -11,7 +10,7 @@ const factoryWrapper = <T>(
 ) => {
   const factoryResult = factory(data2);
   if (factoryResult === null) {
-    onError && onError(new Error("Could not load data"));
+    onError && onError(new Error('Could not load data'));
     return null;
   } else {
     return factoryResult;
@@ -32,7 +31,7 @@ export const loadData = <T>(
     );
   } else {
     const uri =
-      typeof source === "string" ? source : Platform.resolveAsset(source);
+      typeof source === 'string' ? source : Platform.resolveAsset(source);
     return Skia.Data.fromURI(uri).then((d) =>
       factoryWrapper(d, factory, onError)
     );
@@ -96,13 +95,12 @@ export const useCollectionLoading = <T extends SkJSIInstance<string>>(
 };
 
 export const useRawData = <T extends SkJSIInstance<string>>(
+  Skia: Skia,
   source: DataSourceParam,
   factory: (data: SkData) => T | null,
   onError?: (err: Error) => void,
   manage = true
 ) => {
-  const { Skia } = useSkiaApi();
-
   return useLoading(
     source,
     () => loadData<T>(Skia, source, factory, onError),
@@ -113,6 +111,7 @@ export const useRawData = <T extends SkJSIInstance<string>>(
 const identity = (data: SkData) => data;
 
 export const useData = (
+  Skia: Skia,
   source: DataSourceParam,
   onError?: (err: Error) => void
-) => useRawData(source, identity, onError);
+) => useRawData(Skia, source, identity, onError);

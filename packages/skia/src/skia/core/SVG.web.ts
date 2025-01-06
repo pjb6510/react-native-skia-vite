@@ -1,19 +1,17 @@
-import { useSkiaApi } from "../../renderer/useSkiaApi";
-import type { DataSourceParam } from "../types";
+import type { DataSourceParam, Skia } from '../types';
 
 export const useSVG = (
+  Skia: Skia,
   source: DataSourceParam,
   onError?: (err: Error) => void
 ) => {
-  const { Skia } = useSkiaApi();
-
   if (source === null || source === undefined) {
     throw new Error(`Invalid svg data source. Got: ${source}`);
   }
   if (
-    typeof source !== "object" ||
+    typeof source !== 'object' ||
     source instanceof Uint8Array ||
-    typeof source.default !== "string"
+    typeof source.default !== 'string'
   ) {
     throw new Error(
       `Invalid svg data source. Make sure that the source resolves to a string. Got: ${JSON.stringify(
@@ -25,7 +23,7 @@ export const useSVG = (
   }
   const svg = Skia.SVG.MakeFromString(source.default);
   if (svg === null && onError !== undefined) {
-    onError(new Error("Failed to create SVG from source."));
+    onError(new Error('Failed to create SVG from source.'));
   }
   return svg;
 };

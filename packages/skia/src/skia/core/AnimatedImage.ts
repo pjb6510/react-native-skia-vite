@@ -1,19 +1,18 @@
-import { useSkiaApi } from "../../renderer/useSkiaApi";
-import type { DataSourceParam } from "../types";
+import type { DataSourceParam, Skia } from '../types';
 
-import { useRawData } from "./Data";
+import { useRawData } from './Data';
 
 /**
  * Returns a Skia Animated Image object
  * */
 export const useAnimatedImage = (
+  Skia: Skia,
   source: DataSourceParam,
   onError?: (err: Error) => void,
   managed = true
 ) => {
-  const { Skia } = useSkiaApi();
   const animatedImgFactory =
     Skia.AnimatedImage.MakeAnimatedImageFromEncoded.bind(Skia.AnimatedImage);
 
-  useRawData(source, animatedImgFactory, onError, managed);
+  useRawData(Skia, source, animatedImgFactory, onError, managed);
 };

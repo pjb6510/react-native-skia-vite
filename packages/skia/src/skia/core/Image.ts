@@ -1,19 +1,18 @@
-import { Platform } from "../../Platform";
-import { useSkiaApi } from "../../renderer/useSkiaApi";
-import type { DataSourceParam, Skia, SkImage } from "../types";
+import { Platform } from '../../Platform';
+import type { DataSourceParam, Skia, SkImage } from '../types';
 
-import { useRawData } from "./Data";
+import { useRawData } from './Data';
 
 /**
  * Returns a Skia Image object
  * */
 export const useImage = (
+  Skia: Skia,
   source: DataSourceParam,
   onError?: (err: Error) => void
 ) => {
-  const { Skia } = useSkiaApi();
   const imgFactory = Skia.Image.MakeImageFromEncoded.bind(Skia.Image);
-  return useRawData(source, imgFactory, onError);
+  return useRawData(Skia, source, imgFactory, onError);
 };
 
 /**
@@ -39,13 +38,13 @@ export const makeImageFromView = <
     | ((viewRef: React.RefObject<T>) => Promise<SkImage | null>) = null
 ) => {
   // In web implementation we just delegate the work to the provided callback
-  if (Platform.OS === "web") {
+  if (Platform.OS === 'web') {
     if (callback) {
       return callback(viewRef);
     } else {
       Promise.reject(
         new Error(
-          "Callback is required on web in the makeImageFromView function."
+          'Callback is required on web in the makeImageFromView function.'
         )
       );
     }
@@ -54,5 +53,5 @@ export const makeImageFromView = <
   if (viewTag !== null && viewTag !== 0) {
     return Skia.Image.MakeImageFromViewTag(viewTag);
   }
-  return Promise.reject(new Error("Invalid view tag"));
+  return Promise.reject(new Error('Invalid view tag'));
 };

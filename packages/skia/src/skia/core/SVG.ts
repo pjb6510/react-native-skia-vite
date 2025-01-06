@@ -1,14 +1,13 @@
-import { useSkiaApi } from "../../renderer/useSkiaApi";
-import type { DataSourceParam } from "../types";
+import type { DataSourceParam, Skia } from '../types';
 
-import { useRawData } from "./Data";
+import { useRawData } from './Data';
 
 export const useSVG = (
+  Skia: Skia,
   source: DataSourceParam,
   onError?: (err: Error) => void
 ) => {
-  const { Skia } = useSkiaApi();
   const svgFactory = Skia.SVG.MakeFromData.bind(Skia.SVG);
 
-  return useRawData(source, svgFactory, onError);
+  return useRawData(Skia, source, svgFactory, onError);
 };
