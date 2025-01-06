@@ -1,1 +1,1 @@
-export type ScreenType = 'RenderingTest';
+export type ScreenType = 'RenderingTest' | 'AnimationTest';

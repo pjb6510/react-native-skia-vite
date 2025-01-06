@@ -1,3 +1,4 @@
+import { Flex } from '@radix-ui/themes';
 import { FC, useState } from 'react';
 import { MainScreen } from './components/MainScreen';
 import { Navigator } from './components/Navigator';
@@ -13,7 +14,12 @@ export const App: FC = () => {
         currentScreen={currentScreen}
         onScreenSelect={setCurrentScreen}
       />
-      <MainScreen screenType={currentScreen} />
+      <Flex
+        direction="row"
+        flexGrow="1"
+      >
+        <MainScreen screenType={currentScreen} />
+      </Flex>
     </div>
   );
 };
