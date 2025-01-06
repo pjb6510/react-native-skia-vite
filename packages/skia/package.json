@@ -39,7 +39,6 @@
   },
   "dependencies": {
     "canvaskit-wasm": "0.39.1",
-    "react-native-reanimated": "^3.16.5",
     "react-reconciler": "^0.29.2"
   },
   "eslintIgnore": [
