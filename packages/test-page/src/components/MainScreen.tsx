@@ -4,6 +4,7 @@ import { match } from 'ts-pattern';
 import { ScreenType } from '../types/ScreenType';
 import { AnimationTestCanvas } from './Main/AnimationTestCanvas';
 import { RenderingTestCanvas } from './Main/RenderingTestCanvas';
+import { PerformanceTestCanvas } from './Main/PerformanceTestCanvas';
 
 type MainScreenProps = {
   screenType: ScreenType;
@@ -18,6 +19,7 @@ export const MainScreen: FC<MainScreenProps> = ({ screenType }) => {
       {match(screenType)
         .with('RenderingTest', () => <RenderingTestCanvas />)
         .with('AnimationTest', () => <AnimationTestCanvas />)
+        .with('PerformanceTest', () => <PerformanceTestCanvas />)
         .exhaustive()}
     </Flex>
   );

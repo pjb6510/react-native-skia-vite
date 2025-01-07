@@ -2,8 +2,7 @@ import { Button, Card, Flex } from '@radix-ui/themes';
 import { animate } from 'motion';
 import { FC, useState } from 'react';
 import { Canvas, RoundedRect } from 'react-native-skia-with-vite';
-
-const degreeToRadian = (degree: number) => degree * (Math.PI / 180);
+import { degreeToRadian } from '../../utils/degreeToRadian';
 
 const initialArgs = {
   x: -100,

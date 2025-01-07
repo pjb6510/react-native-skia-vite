@@ -28,6 +28,12 @@ export const Navigator: FC<NavigatorProps> = ({
       >
         AnimationTest
       </TabNav.Link>
+      <TabNav.Link
+        active={currentScreen === 'PerformanceTest'}
+        onClick={() => onScreenSelect('PerformanceTest')}
+      >
+        PerformanceTest
+      </TabNav.Link>
     </TabNav.Root>
   );
 };
