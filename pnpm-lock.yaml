@@ -77,6 +77,9 @@ importers:
       ts-pattern:
         specifier: ^5.6.0
         version: 5.6.0
+      uuid:
+        specifier: ^11.0.4
+        version: 11.0.4
     devDependencies:
       '@eslint/js':
         specifier: ^9.15.0
@@ -2241,6 +2244,10 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+
+  uuid@11.0.4:
+    resolution: {integrity: sha512-IzL6VtTTYcAhA/oghbFJ1Dkmqev+FpQWnCBaKq/gUluLxliWvO8DPFWfIviRmYbtaavtSQe4WBL++rFjdcGWEg==}
+    hasBin: true
 
   vite-plugin-dts@4.3.0:
     resolution: {integrity: sha512-LkBJh9IbLwL6/rxh0C1/bOurDrIEmRE7joC+jFdOEEciAFPbpEKOLSAr5nNh5R7CJ45cMbksTrFfy52szzC5eA==}
@@ -4425,6 +4432,8 @@ snapshots:
       '@types/react': 18.3.17
 
   util-deprecate@1.0.2: {}
+
+  uuid@11.0.4: {}
 
   vite-plugin-dts@4.3.0(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.6.3)(vite@6.0.3(@types/node@22.10.2)(jiti@1.21.7)(terser@5.37.0)(yaml@2.7.0)):
     dependencies:
