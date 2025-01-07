@@ -5,40 +5,78 @@ import { Canvas, RoundedRect } from 'react-native-skia-with-vite';
 
 const degreeToRadian = (degree: number) => degree * (Math.PI / 180);
 
+const initialArgs = {
+  x: -100,
+  width: 0,
+  rotation: 0,
+  color: '#ff0000',
+};
+
+const targetArgs = {
+  x: 800,
+  width: 800,
+  rotation: 360,
+  color: '#0000ff',
+};
+
 export const AnimationTestCanvas: FC = () => {
-  const [x, setX] = useState(-100);
-  const [width, setWidth] = useState(0);
-  const [rotation, setRotation] = useState(0);
-  const [color, setColor] = useState('#ff0000');
+  const [x, setX] = useState(initialArgs.x);
+  const [width, setWidth] = useState(initialArgs.width);
+  const [rotation, setRotation] = useState(initialArgs.rotation);
+  const [color, setColor] = useState(initialArgs.color);
 
   const handlePlay = () => {
-    animate(-100, 800, {
+    animate(initialArgs.x, targetArgs.x, {
       onUpdate: setX,
-      repeat: Infinity,
+      repeatDelay: 1,
       ease: 'easeInOut',
       duration: 1,
     });
-
-    animate(0, 800, {
+    animate(initialArgs.width, targetArgs.width, {
       onUpdate: setWidth,
-      repeat: Infinity,
+      repeatDelay: 1,
       ease: 'easeInOut',
       duration: 1,
     });
-
-    animate(0, 360, {
+    animate(initialArgs.rotation, targetArgs.rotation, {
       onUpdate: setRotation,
-      repeat: Infinity,
+      repeatDelay: 1,
+      ease: 'easeInOut',
+      duration: 1,
+    });
+    animate(initialArgs.color, targetArgs.color, {
+      onUpdate: setColor,
+      repeatDelay: 1,
       ease: 'easeInOut',
       duration: 1,
     });
 
-    animate('#ff0000', '#0000ff', {
-      onUpdate: setColor,
-      repeat: Infinity,
-      ease: 'easeInOut',
-      duration: 1,
-    });
+    setTimeout(() => {
+      animate(targetArgs.x, initialArgs.x, {
+        onUpdate: setX,
+        repeatDelay: 1,
+        ease: 'easeInOut',
+        duration: 1,
+      });
+      animate(targetArgs.width, initialArgs.width, {
+        onUpdate: setWidth,
+        repeatDelay: 1,
+        ease: 'easeInOut',
+        duration: 1,
+      });
+      animate(targetArgs.rotation, initialArgs.rotation, {
+        onUpdate: setRotation,
+        repeatDelay: 1,
+        ease: 'easeInOut',
+        duration: 1,
+      });
+      animate(targetArgs.color, initialArgs.color, {
+        onUpdate: setColor,
+        repeatDelay: 1,
+        ease: 'easeInOut',
+        duration: 1,
+      });
+    }, 1000);
   };
 
   return (
