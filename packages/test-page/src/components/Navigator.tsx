@@ -16,24 +16,15 @@ export const Navigator: FC<NavigatorProps> = ({
       color="indigo"
       size="2"
     >
-      <TabNav.Link
-        active={currentScreen === 'RenderingTest'}
-        onClick={() => onScreenSelect('RenderingTest')}
-      >
-        RenderingTest
-      </TabNav.Link>
-      <TabNav.Link
-        active={currentScreen === 'AnimationTest'}
-        onClick={() => onScreenSelect('AnimationTest')}
-      >
-        AnimationTest
-      </TabNav.Link>
-      <TabNav.Link
-        active={currentScreen === 'PerformanceTest'}
-        onClick={() => onScreenSelect('PerformanceTest')}
-      >
-        PerformanceTest
-      </TabNav.Link>
+      {Object.values(ScreenType).map((screen) => (
+        <TabNav.Link
+          key={screen}
+          active={screen === currentScreen}
+          onClick={() => onScreenSelect(screen)}
+        >
+          {screen}
+        </TabNav.Link>
+      ))}
     </TabNav.Root>
   );
 };
