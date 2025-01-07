@@ -16,7 +16,7 @@ export const InteractionTestCanvas: FC = () => {
     y: height / 2,
   };
 
-  const onMove = (e: FullGestureState<'move'>) => {
+  const handleMove = (e: FullGestureState<'move'>) => {
     const { xy } = e;
     const x = xy[0];
     const y = xy[1];
@@ -27,7 +27,7 @@ export const InteractionTestCanvas: FC = () => {
 
   return (
     <Card>
-      <GestureDetector onMove={onMove}>
+      <GestureDetector onMove={handleMove}>
         <Canvas style={{ width, height }}>
           <RoundedRect
             x={width / 2 - 50}
@@ -35,7 +35,7 @@ export const InteractionTestCanvas: FC = () => {
             width={100}
             height={100}
             r={10}
-            color={0xff0000ff}
+            color={'#0073ff'}
             origin={{
               x: center.x,
               y: center.y,

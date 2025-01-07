@@ -31,7 +31,7 @@ type GestureDetectorProps<T extends AnyHandlerEventTypes = EventTypes> = {
   onHover?: Handler<'hover', check<T, 'hover'>>;
 
   children: React.ReactNode;
-};
+} & React.ComponentProps<'div'>;
 
 const noop = () => {};
 
@@ -54,6 +54,8 @@ export const GestureDetector: FC<GestureDetectorProps> = ({
   onMoveEnd = noop,
 
   children,
+
+  ...props
 }) => {
   const bind = useGesture({
     onDrag,
@@ -91,6 +93,7 @@ export const GestureDetector: FC<GestureDetectorProps> = ({
       className="gesture-detector"
       style={{ touchAction: 'none' }}
       {...bind()}
+      {...props}
     >
       {children}
     </div>
