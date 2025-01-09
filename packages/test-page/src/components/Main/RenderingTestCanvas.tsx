@@ -1,3 +1,4 @@
+import { Card } from '@radix-ui/themes';
 import { FC } from 'react';
 import {
   Canvas,
@@ -15,7 +16,6 @@ import {
   SweepGradient,
 } from 'react-native-skia-with-vite';
 import { useSkiaApi } from '../../../../skia';
-import { Card } from '@radix-ui/themes';
 
 const width = 800;
 const height = 600;
