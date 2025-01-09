@@ -2,10 +2,10 @@ import { Flex } from '@radix-ui/themes';
 import { FC } from 'react';
 import { match } from 'ts-pattern';
 import { ScreenType } from '../types/ScreenType';
-import { AnimationTestCanvas } from './Main/AnimationTestCanvas';
-import { InteractionTestCanvas } from './Main/InteractionTestCanvas';
-import { PerformanceTestCanvas } from './Main/PerformanceTestCanvas';
-import { RenderingTestCanvas } from './Main/RenderingTestCanvas';
+import { AnimationTestCanvas } from './Main/TestCanvases/AnimationTestCanvas';
+import { InteractionTestCanvas } from './Main/TestCanvases/InteractionTestCanvas';
+import { PerformanceTestCanvas } from './Main/TestCanvases/PerformanceTestCanvas';
+import { RenderingTestCanvas } from './Main/TestCanvases/RenderingTestCanvas';
 
 type MainScreenProps = {
   screenType: ScreenType;

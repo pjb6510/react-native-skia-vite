@@ -2,7 +2,7 @@ import { Card } from '@radix-ui/themes';
 import { FullGestureState } from '@use-gesture/react';
 import { FC, useState } from 'react';
 import { Canvas, RoundedRect, Shadow } from 'react-native-skia-with-vite';
-import { GestureDetector } from '../common/GestureDetector';
+import { GestureDetector } from '../../common/GestureDetector';
 
 const width = 800;
 const height = 600;

@@ -15,7 +15,7 @@ import {
   Shadow,
   SweepGradient,
 } from 'react-native-skia-with-vite';
-import { useSkiaApi } from '../../../../skia';
+import { useSkiaApi } from '../../../../../skia';
 
 const width = 800;
 const height = 600;

@@ -3,9 +3,9 @@ import { animate } from 'motion';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { Canvas, RoundedRect } from 'react-native-skia-with-vite';
 import { v4 as uuid } from 'uuid';
-import { degreeToRadian } from '../../utils/degreeToRadian';
-import { generateRandomColor } from '../../utils/generateRandomColor';
-import { StatsPanel } from '../common/StatsPanel';
+import { degreeToRadian } from '../../../utils/degreeToRadian';
+import { generateRandomColor } from '../../../utils/generateRandomColor';
+import { StatsPanel } from '../../common/StatsPanel';
 
 const width = 800;
 const height = 600;
