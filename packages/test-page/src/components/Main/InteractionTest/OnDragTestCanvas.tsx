@@ -1,15 +1,15 @@
-import { Card } from "@radix-ui/themes";
-import { FC, PointerEventHandler, useRef, useState } from "react";
-import { Canvas, RoundedRect, Shadow, Text } from "react-native-skia-with-vite";
-import { useSkiaApi } from "../../../../../skia";
-import nanumGothic from "../../../../public/font/NanumGothic.otf?url";
-import { GestureDetector } from "../../common/GestureDetector";
-import { canvasSize } from "../canvasSize";
+import { useSkiaApi } from '../../../../../skia';
+import { GestureDetector } from '../../common/GestureDetector';
+import { canvasSize } from '../canvasSize';
+import NanumGothic from '/font/NanumGothic.otf?url';
+import { Card } from '@radix-ui/themes';
+import { FC, PointerEventHandler, useRef, useState } from 'react';
+import { Canvas, RoundedRect, Shadow, Text } from 'react-native-skia-with-vite';
 
 export const OnDragTestCanvas: FC = () => {
   const { Hooks } = useSkiaApi();
   const { useFont } = Hooks;
-  const font = useFont(nanumGothic, 14);
+  const font = useFont(NanumGothic);
 
   const gestureHandlerRef = useRef<HTMLDivElement>(null);
   const isMouseDownRef = useRef(false);
@@ -84,20 +84,20 @@ export const OnDragTestCanvas: FC = () => {
             width={100}
             height={100}
             r={10}
-            color={"#0073ff"}
+            color={'#0073ff'}
             origin={{
               x: canvasSize.width / 2,
               y: canvasSize.height / 2,
             }}
           >
-            <Shadow dx={0} dy={0} blur={12} color={"black"} />
+            <Shadow dx={0} dy={0} blur={12} color={'black'} />
           </RoundedRect>
           <Text
             font={font}
             x={position.x + 20}
             y={position.y + 50}
-            text={"Drag me!"}
-            color={"white"}
+            text={'Drag me!'}
+            color={'white'}
           />
         </Canvas>
       </GestureDetector>
