@@ -4,8 +4,9 @@
  */
 
 const config = {
-  plugins: [import("prettier-plugin-tailwind")],
-  tailwindFunctions: ["cn"],
+  singleQuote: true,
+  plugins: [import('prettier-plugin-tailwind')],
+  tailwindFunctions: ['cn'],
 };
 
 module.exports = config;
