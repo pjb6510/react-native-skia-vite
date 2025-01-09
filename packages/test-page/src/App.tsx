@@ -5,8 +5,9 @@ import { Navigator } from './components/Navigator';
 import { ScreenType } from './types/ScreenType';
 
 export const App: FC = () => {
-  const [currentScreen, setCurrentScreen] =
-    useState<ScreenType>('RenderingTest');
+  const [currentScreen, setCurrentScreen] = useState<ScreenType>(
+    ScreenType.InteractionTest
+  );
 
   return (
     <div className="flex flex-col gap-4">
