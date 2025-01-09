@@ -3,9 +3,7 @@ import { FullGestureState } from '@use-gesture/react';
 import { FC, useRef, useState } from 'react';
 import { Canvas, RoundedRect, Shadow } from 'react-native-skia-with-vite';
 import { GestureDetector } from '../../common/GestureDetector';
-
-const width = 800;
-const height = 600;
+import { canvasSize } from '../canvasSize';
 
 export const OnMoveTestCanvas: FC = () => {
   const [rotationX, setRotationX] = useState(0);
@@ -14,8 +12,8 @@ export const OnMoveTestCanvas: FC = () => {
   const gestureDetectorElemRef = useRef<HTMLDivElement>(null);
 
   const center = {
-    x: width / 2,
-    y: height / 2,
+    x: canvasSize.width / 2,
+    y: canvasSize.height / 2,
   };
 
   const handleMove = (e: FullGestureState<'move'>) => {
@@ -40,10 +38,10 @@ export const OnMoveTestCanvas: FC = () => {
         ref={gestureDetectorElemRef}
         onMove={handleMove}
       >
-        <Canvas style={{ width, height }}>
+        <Canvas style={{ width: canvasSize.width, height: canvasSize.height }}>
           <RoundedRect
-            x={width / 2 - 50}
-            y={height / 2 - 50}
+            x={canvasSize.width / 2 - 50}
+            y={canvasSize.height / 2 - 50}
             width={100}
             height={100}
             r={10}
