@@ -3,6 +3,7 @@ import { FC, useState } from 'react';
 import { match } from 'ts-pattern';
 import { Sidebar } from '../../common/Sidebar';
 import { InteractionTestType } from './InteractionTestType';
+import { OnDragTestCanvas } from './OnDragTestCanvas';
 import { OnMoveTestCanvas } from './OnMoveTestCanvas';
 
 export const InteractionTestSection: FC = () => {
@@ -11,18 +12,20 @@ export const InteractionTestSection: FC = () => {
   return (
     <Flex gap="3">
       <Sidebar.Root>
-        {Object.values(InteractionTestType).map((testType) => (
+        {Object.values(InteractionTestType).map((currentTestType) => (
           <Sidebar.Link
-            key={testType}
-            onClick={() => setTestType(testType)}
+            key={currentTestType}
+            onClick={() => setTestType(currentTestType)}
+            active={testType === currentTestType}
           >
-            {testType}
+            {currentTestType}
           </Sidebar.Link>
         ))}
       </Sidebar.Root>
 
       {match(testType)
         .with(InteractionTestType.OnMove, () => <OnMoveTestCanvas />)
+        .with(InteractionTestType.OnDrag, () => <OnDragTestCanvas />)
         .otherwise(() => {
           console.error('Invalid test type:', testType);
           return null;
