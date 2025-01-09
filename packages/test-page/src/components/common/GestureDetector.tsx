@@ -5,7 +5,7 @@ import {
   Handler,
   useGesture,
 } from '@use-gesture/react';
-import { FC, useEffect } from 'react';
+import { FC, forwardRef, useEffect } from 'react';
 
 type check<
   T extends AnyHandlerEventTypes,
@@ -35,67 +35,75 @@ type GestureDetectorProps<T extends AnyHandlerEventTypes = EventTypes> = {
 
 const noop = () => {};
 
-export const GestureDetector: FC<GestureDetectorProps> = ({
-  onDrag = noop,
-  onDragStart = noop,
-  onDragEnd = noop,
-  onPinch = noop,
-  onPinchStart = noop,
-  onPinchEnd = noop,
-  onScroll = noop,
-  onScrollStart = noop,
-  onScrollEnd = noop,
-  onWheel = noop,
-  onWheelStart = noop,
-  onWheelEnd = noop,
-  onHover = noop,
-  onMove = noop,
-  onMoveStart = noop,
-  onMoveEnd = noop,
+export const GestureDetector: FC<GestureDetectorProps> = forwardRef(
+  (
+    {
+      onDrag = noop,
+      onDragStart = noop,
+      onDragEnd = noop,
+      onPinch = noop,
+      onPinchStart = noop,
+      onPinchEnd = noop,
+      onScroll = noop,
+      onScrollStart = noop,
+      onScrollEnd = noop,
+      onWheel = noop,
+      onWheelStart = noop,
+      onWheelEnd = noop,
+      onHover = noop,
+      onMove = noop,
+      onMoveStart = noop,
+      onMoveEnd = noop,
 
-  children,
+      children,
 
-  ...props
-}) => {
-  const bind = useGesture({
-    onDrag,
-    onDragStart,
-    onDragEnd,
-    onPinch,
-    onPinchStart,
-    onPinchEnd,
-    onScroll,
-    onScrollStart,
-    onScrollEnd,
-    onWheel,
-    onWheelStart,
-    onWheelEnd,
-    onHover,
-    onMove,
-    onMoveStart,
-    onMoveEnd,
-  });
+      ...props
+    },
+    ref
+  ) => {
+    const bind = useGesture({
+      onDrag,
+      onDragStart,
+      onDragEnd,
+      onPinch,
+      onPinchStart,
+      onPinchEnd,
+      onScroll,
+      onScrollStart,
+      onScrollEnd,
+      onWheel,
+      onWheelStart,
+      onWheelEnd,
+      onHover,
+      onMove,
+      onMoveStart,
+      onMoveEnd,
+    });
 
-  useEffect(() => {
-    document.addEventListener('gesturestart', (e) => e.preventDefault());
-    document.addEventListener('gesturechange', (e) => e.preventDefault());
-    document.addEventListener('gestureend', (e) => e.preventDefault());
+    useEffect(() => {
+      document.addEventListener('gesturestart', (e) => e.preventDefault());
+      document.addEventListener('gesturechange', (e) => e.preventDefault());
+      document.addEventListener('gestureend', (e) => e.preventDefault());
 
-    return () => {
-      document.removeEventListener('gesturestart', (e) => e.preventDefault());
-      document.removeEventListener('gesturechange', (e) => e.preventDefault());
-      document.removeEventListener('gestureend', (e) => e.preventDefault());
-    };
-  }, []);
+      return () => {
+        document.removeEventListener('gesturestart', (e) => e.preventDefault());
+        document.removeEventListener('gesturechange', (e) =>
+          e.preventDefault()
+        );
+        document.removeEventListener('gestureend', (e) => e.preventDefault());
+      };
+    }, []);
 
-  return (
-    <div
-      className="gesture-detector"
-      style={{ touchAction: 'none' }}
-      {...bind()}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-};
+    return (
+      <div
+        className="gesture-detector"
+        style={{ touchAction: 'none' }}
+        {...bind()}
+        {...props}
+        ref={ref}
+      >
+        {children}
+      </div>
+    );
+  }
+);

@@ -1,15 +1,17 @@
 import { Card } from '@radix-ui/themes';
 import { FullGestureState } from '@use-gesture/react';
-import { FC, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import { Canvas, RoundedRect, Shadow } from 'react-native-skia-with-vite';
 import { GestureDetector } from '../../common/GestureDetector';
 
 const width = 800;
 const height = 600;
 
-export const InteractionTestCanvas: FC = () => {
+export const OnMoveTestCanvas: FC = () => {
   const [rotationX, setRotationX] = useState(0);
   const [rotationY, setRotationY] = useState(0);
+
+  const gestureDetectorElemRef = useRef<HTMLDivElement>(null);
 
   const center = {
     x: width / 2,
@@ -17,17 +19,27 @@ export const InteractionTestCanvas: FC = () => {
   };
 
   const handleMove = (e: FullGestureState<'move'>) => {
-    const { xy } = e;
-    const x = xy[0];
-    const y = xy[1];
+    if (gestureDetectorElemRef.current == null) {
+      return;
+    }
 
-    setRotationY(x - center.x);
-    setRotationX(-(y - center.y));
+    const { xy } = e;
+    const [x, y] = xy;
+    const { left, top } =
+      gestureDetectorElemRef.current.getBoundingClientRect();
+    const relativeX = x - left;
+    const relativeY = y - top;
+
+    setRotationY(relativeX - center.x);
+    setRotationX(-(relativeY - center.y));
   };
 
   return (
     <Card>
-      <GestureDetector onMove={handleMove}>
+      <GestureDetector
+        ref={gestureDetectorElemRef}
+        onMove={handleMove}
+      >
         <Canvas style={{ width, height }}>
           <RoundedRect
             x={width / 2 - 50}
